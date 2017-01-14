@@ -59,7 +59,7 @@ public class JoinNode extends AbstractNode {
 
 		for (Tuple t : leftList) {
 
-			Tuple merged = tuple.mergeTuple(t);
+			Tuple merged = t.mergeTuple(tuple);
 
 			if (isTrueFor(merged)) {
 

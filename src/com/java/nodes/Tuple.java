@@ -1,7 +1,9 @@
 package com.java.nodes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Tuple {
 
@@ -18,6 +20,14 @@ public class Tuple {
 		list.addAll(objects);
 	}
 
+	public Map<Class, Object> getClassObjectsMap() {
+		Map<Class, Object> map = new HashMap<>();
+		for (Object o : list) {
+			map.put(o.getClass(), o);
+		}
+		return map;
+	}
+
 	public List<Object> getObjectsByClass(Class c) {
 		List<Object> objs = new ArrayList<>();
 
@@ -30,7 +40,11 @@ public class Tuple {
 	}
 
 	public void addTuple(Tuple tuple) {
-		list.addAll(tuple.getObjects());
+		for (Object obj : tuple.getObjects()) {
+			if (!list.contains(obj)) {
+				list.add(obj);
+			}
+		}
 	}
 
 	public Tuple mergeTuple(Tuple tuple) {
@@ -41,7 +55,9 @@ public class Tuple {
 	}
 
 	public void addObject(Object obj) {
-		list.add(obj);
+		if (!list.contains(obj)) {
+			list.add(obj);
+		}
 	}
 
 	public List<Object> getObjects() {

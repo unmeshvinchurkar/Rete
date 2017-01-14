@@ -39,6 +39,11 @@ public class AlphaNode implements Node {
 	}
 
 	public void sinkObject(Tuple tuple) {
+		
+		if (!isTrueFor(tuple)) {
+			return;
+		}
+
 		for (Node node : childNodes.values()) {
 
 			if (node.isTrueFor(tuple)) {

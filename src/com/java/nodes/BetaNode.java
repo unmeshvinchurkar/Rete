@@ -31,13 +31,12 @@ public class BetaNode extends AbstractNode {
 	public void addChildNode(Node node) {
 		if (childNode == null) {
 			childNode = node;
-		} else {
-			childNode.addChildNode(node);
 		}
 	}
 
 	@Override
 	public void sinkObject(Tuple tuple) {
+		sinkLeft(tuple);
 	}
 
 	@Override
