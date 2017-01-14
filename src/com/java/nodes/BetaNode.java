@@ -5,11 +5,7 @@ import java.util.List;
 import com.java.base.Condition;
 
 public class BetaNode extends AbstractNode {
-
-	private Node childNode = null;
-
-	private BetaMemory memory = new BetaMemory();
-
+		
 	private Condition joinCondition = null;
 
 	public BetaNode(Condition c) {
@@ -39,61 +35,7 @@ public class BetaNode extends AbstractNode {
 		sinkLeft(tuple);
 	}
 
-	@Override
-	public void sinkLeft(Tuple tuple) {
-
-		memory.addLeftTuple(tuple);
-		List<Tuple> rightList = memory.getRightTupleMemory();
-		for (Tuple t : rightList) {
-
-			Tuple merged = tuple.mergeTuple(t);
-
-			if (isTrueFor(merged)) {
-
-				if (childNode != null) {
-
-					if (childNode instanceof AbstractNode) {
-						AbstractNode cn = (AbstractNode) childNode;
-
-						if (cn.isLeftParent(this)) {
-							cn.sinkLeft(merged);
-						} else {
-							cn.sinkRight(merged);
-						}
-					} else {
-						childNode.sinkObject(merged);
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public void sinkRight(Tuple tuple) {
-
-		memory.addRightTuple(tuple);
-		List<Tuple> leftList = memory.getLeftTupleMemory();
-
-		for (Tuple t : leftList) {
-
-			Tuple merged = t.mergeTuple(tuple);
-
-			if (isTrueFor(merged)) {
-				if (childNode != null) {
-					if (childNode instanceof AbstractNode) {
-						AbstractNode cn = (AbstractNode) childNode;
-						if (cn.isLeftParent(this)) {
-							cn.sinkLeft(merged);
-						} else {
-							cn.sinkRight(merged);
-						}
-					} else {
-						childNode.sinkObject(merged);
-					}
-				}
-			}
-		}
-	}
+	
 
 	public List<Class> getClasses() {
 		return joinCondition.getBoms();

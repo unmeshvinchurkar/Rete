@@ -32,7 +32,7 @@ public class RootNode {
 
 		List<Condition> oConditions = rule.getObjectConditions();
 
-		// Create alpha nodes
+		// Create alpha nodes //////////////////////////////
 		for (Condition c : oConditions) {
 
 			Class cl = c.getBoms().get(0);
@@ -40,11 +40,13 @@ public class RootNode {
 
 			Node alpha = new AlphaNode(c);
 
+			// check if a similar alpha node already present
 			if (!parent.contains(alpha)) {
 				parent.addChildNode(alpha);
 			} else {
 				alpha = parent.getChildNode(alpha);
 			}
+			
 			parent = alpha;
 			typeParentMap.put(cl, parent);
 		}

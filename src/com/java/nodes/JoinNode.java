@@ -2,11 +2,7 @@ package com.java.nodes;
 
 import java.util.List;
 
-public class JoinNode extends AbstractNode {
-
-	private Node childNode = null;
-
-	private BetaMemory memory = new BetaMemory();
+public class JoinNode extends AbstractNode {	
 
 	@Override
 	public Node getChildNode(Object key) {
@@ -21,64 +17,6 @@ public class JoinNode extends AbstractNode {
 	@Override
 	public void sinkObject(Tuple tuple) {
 		sinkLeft(tuple);
-	}
-
-	@Override
-	public void sinkLeft(Tuple tuple) {
-		memory.addLeftTuple(tuple);
-		List<Tuple> rightList = memory.getRightTupleMemory();
-		for (Tuple t : rightList) {
-
-			Tuple merged = tuple.mergeTuple(t);
-
-			if (isTrueFor(merged)) {
-
-				if (childNode != null) {
-
-					if (childNode instanceof AbstractNode) {
-						AbstractNode cn = (AbstractNode) childNode;
-
-						if (cn.isLeftParent(this)) {
-							cn.sinkLeft(merged);
-						} else {
-							cn.sinkRight(merged);
-						}
-					} else {
-						childNode.sinkObject(merged);
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public void sinkRight(Tuple tuple) {
-		memory.addRightTuple(tuple);
-
-		List<Tuple> leftList = memory.getLeftTupleMemory();
-
-		for (Tuple t : leftList) {
-
-			Tuple merged = t.mergeTuple(tuple);
-
-			if (isTrueFor(merged)) {
-
-				if (childNode != null) {
-
-					if (childNode instanceof AbstractNode) {
-						AbstractNode cn = (AbstractNode) childNode;
-
-						if (cn.isLeftParent(this)) {
-							cn.sinkLeft(merged);
-						} else {
-							cn.sinkRight(merged);
-						}
-					} else {
-						childNode.sinkObject(merged);
-					}
-				}
-			}
-		}
 	}
 
 	@Override
