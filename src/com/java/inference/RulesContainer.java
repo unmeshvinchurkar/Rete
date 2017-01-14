@@ -26,10 +26,17 @@ public class RulesContainer {
 
 	public void addRule(Rule r) {
 		rules.add(r);
+		ruleMap.put(r.getId(), r);
 	}
 
-	public void addRules(List<Rule> r) {
-		rules.addAll(r);
+	public void addRules(List<Rule> rs) {
+		for (Rule r : rs) {
+			addRule(r);
+		}
+	}
+
+	public Rule getRuleById(Integer ruleId) {
+		return ruleMap.get(ruleId);
 	}
 
 	public List<Rule> getRules() {

@@ -1,6 +1,7 @@
 package com.java.test.base;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.java.base.Action;
@@ -14,6 +15,7 @@ import com.java.bom.Student;
 import com.java.bom.Subject;
 import com.java.inference.RulesContainer;
 import com.java.nodes.ConflictSet;
+import com.java.nodes.Tuple;
 
 public class TestRules {
 
@@ -27,10 +29,18 @@ public class TestRules {
 
 		Task t1 = new Task() {
 
-			public List execute(Object obj[]) {
+			public List execute(Tuple tuple) {
 				List targetObjs = new ArrayList<>();
+				Student s = null;
 
-				Student s = (Student) obj[0];
+				Object obj = tuple.getObjectsByClass(Student.class);
+
+				if (obj instanceof Collection) {
+					s = (Student) ((Collection) obj).toArray()[0];
+				} else {
+					s = (Student) obj;
+				}
+
 				s.setPoints(s.getPoints() + 50);
 				targetObjs.add(s);
 				return targetObjs;
@@ -71,23 +81,26 @@ public class TestRules {
 		container.sinkObject(maths);
 
 		ConflictSet.print();
-//		if (c2.isTrueFor(stud)) {
-//			r1.fire(new Object[] { stud });
-//		}
-		
+
+		Collection<Integer> activeRuleIds = ConflictSet.getActiveRuleIds();
+
+		for (Integer ruleId : activeRuleIds) {
+			container.getRuleById(ruleId).fire(ConflictSet.getTupleByRuleId(ruleId));
+		}
+
+		// if (c2.isTrueFor(stud)) {
+		// r1.fire( new Tuple(stud ));
+		// }
+
 		System.out.println("__________________________________________________");
-		
-		container.removeObject(maths);
-		
-		
-		ConflictSet.print();
-
-		System.out.println("canonical name: " + stud.getClass().getCanonicalName());
-		System.out.println("canonical name: " + stud.getClass().getName());
-
-		System.out.println("Object class: " + a1.getTargetObjectClasses());
 
 		System.out.println("Students points: " + stud.getPoints());
+
+		// container.removeObject(maths);
+
+		// ConflictSet.print();
+
+		// System.out.println("Object class: " + a1.getTargetObjectClasses());
 
 	}
 }

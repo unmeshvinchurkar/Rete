@@ -3,6 +3,8 @@ package com.java.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.java.nodes.Tuple;
+
 public class Action {
 
 	private static int id_counter = 0;
@@ -63,9 +65,9 @@ public class Action {
 		this.fieldName = fieldName;
 	}
 
-	public void execute(Object[] obj) {
+	public void execute(Tuple tuple) {
 		targetObjects = null;
-		targetObjects = task.execute(obj);
+		targetObjects = task.execute(tuple);
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.java.nodes.Tuple;
+
 public class Rule {
 
 	private List<Condition> conditions = new ArrayList<Condition>();
@@ -53,15 +55,15 @@ public class Rule {
 		this.id = id;
 	}
 
-	public void fire(Object obj[]) {
+	public void fire(Tuple tuple) {
 		for (Action action : actions) {
-			action.execute(obj);
+			action.execute(tuple);
 		}
 	}
 
-	public void fire(Map<Integer, Object[]> action_params) {
+	public void fire(Map<Integer, Tuple> action_tuple) {
 		for (Action action : actions) {
-			action.execute(action_params.get(action.getId()));
+			action.execute(action_tuple.get(action.getId()));
 		}
 	}
 
@@ -91,7 +93,7 @@ public class Rule {
 		return targetClasses;
 	}
 
-	public Set<Class> getBoms() {		
+	public Set<Class> getBoms() {
 		return boms;
 	}
 
