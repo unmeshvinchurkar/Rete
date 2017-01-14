@@ -5,7 +5,7 @@ import java.util.List;
 import com.java.base.Condition;
 
 public class BetaNode extends AbstractNode {
-		
+
 	private Condition joinCondition = null;
 
 	public BetaNode(Condition c) {
@@ -19,23 +19,6 @@ public class BetaNode extends AbstractNode {
 	public int getConditionId() {
 		return this.joinCondition.getId();
 	}
-
-	public Node getChildNode(Object key) {
-		return childNode;
-	}
-
-	public void addChildNode(Node node) {
-		if (childNode == null) {
-			childNode = node;
-		}
-	}
-
-	@Override
-	public void sinkObject(Tuple tuple) {
-		sinkLeft(tuple);
-	}
-
-	
 
 	public List<Class> getClasses() {
 		return joinCondition.getBoms();
@@ -68,10 +51,5 @@ public class BetaNode extends AbstractNode {
 		} else if (!joinCondition.equals(other.joinCondition))
 			return false;
 		return true;
-	}
-
-	@Override
-	public boolean contains(Node node) {
-		return childNode == node;
 	}
 }

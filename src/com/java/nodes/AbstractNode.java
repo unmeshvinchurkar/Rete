@@ -10,6 +10,23 @@ public abstract class AbstractNode implements Node {
 	protected BetaMemory memory = new BetaMemory();
 	protected Node childNode = null;
 
+	public void sinkObject(Tuple tuple) {
+		sinkLeft(tuple);
+	}
+
+	@Override
+	public boolean contains(Node node) {
+		return childNode == node;
+	}
+
+	public Node getChildNode(Object key) {
+		return childNode;
+	}
+
+	public void addChildNode(Node node) {
+		childNode = node;
+	}
+
 	public void sinkLeft(Tuple tuple) {
 
 		memory.addLeftTuple(tuple);
