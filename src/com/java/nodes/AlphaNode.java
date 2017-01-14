@@ -46,7 +46,7 @@ public class AlphaNode implements Node {
 
 		for (Node node : childNodes.values()) {
 
-			if (node.isTrueFor(tuple)) {
+			//if (node.isTrueFor(tuple)) {
 
 				if (node instanceof AbstractNode) {
 					AbstractNode an = (AbstractNode) node;
@@ -59,7 +59,7 @@ public class AlphaNode implements Node {
 				} else {
 					node.sinkObject(tuple);
 				}
-			}
+			//}
 		}
 	}
 

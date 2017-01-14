@@ -21,7 +21,7 @@ public class TestRules {
 
 		Condition c1 = new DefaultCondition(Student.class, "age", Operator.GREATER_THAN, 30);
 
-		Condition c2 = new DefaultCondition(Student.class, "age", Operator.LESS_THAN, 80);
+		Condition c2 = new DefaultCondition(Student.class, "age", Operator.LESS_THAN, 100);
 
 		Condition c3 = new JoinCondition(Student.class, "name", Operator.EQUALS, Subject.class, "studentName");
 
@@ -40,19 +40,18 @@ public class TestRules {
 
 		Rule r1 = new Rule();
 		r1.addCondition(c1);
+		r1.addCondition(c3);
 		r1.addAction(a1);
 
 		Rule r2 = new Rule();
 		r2.addCondition(c2);
 		r2.addAction(a1);
-		
-		Rule r3 = new Rule();
-		r3.addCondition(c3);
-		r3.addAction(a1);
 
-		
-		
+//		Rule r3 = new Rule();
+//		r3.addCondition(c3);
+//		r3.addAction(a1);
 
+		/// Create objects /////////////////////////////////////
 		Student stud = new Student();
 		stud.setAge(34);
 		stud.setHeight(5);
@@ -69,7 +68,7 @@ public class TestRules {
 		//container.addRule(r3);
 		container.compile();
 		container.sinkObject(stud);
-		//container.sinkObject(maths);
+		container.sinkObject(maths);
 
 		ConflictSet.print();
 		if (c2.isTrueFor(stud)) {

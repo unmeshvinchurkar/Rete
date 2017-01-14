@@ -63,26 +63,6 @@ public class Operator {
 		} else if (NOT_EQUALS.equals(op)) {
 			return !value1.equals(value2);
 		}
-
-		/**
-		 * 
-		 * if (value1 instanceof Integer) { Integer obj1 = (Integer) value1;
-		 * Integer obj2 = (Integer) value2; if (GREATER_THAN.equals(op)) {
-		 * return obj1 > obj2; } else if (GREATER_THAN_EQUALS.equals(op)) {
-		 * return obj1 >= obj2; } else if (LESS_THAN.equals(op)) { return obj1 <
-		 * obj2; } else if (lESS_THAN_EQUALS.equals(op)) { return obj1 <= obj2;
-		 * } } else if (value1 instanceof Float) { Float obj1 = (Float) value1;
-		 * Float obj2 = (Float) value2; if (GREATER_THAN.equals(op)) { return
-		 * obj1 > obj2; } else if (GREATER_THAN_EQUALS.equals(op)) { return obj1
-		 * >= obj2; } else if (LESS_THAN.equals(op)) { return obj1 < obj2; }
-		 * else if (lESS_THAN_EQUALS.equals(op)) { return obj1 <= obj2; } } else
-		 * if (value1 instanceof Double) { Double obj1 = (Double) value1; Double
-		 * obj2 = (Double) value2; if (GREATER_THAN.equals(op)) { return obj1 >
-		 * obj2; } else if (GREATER_THAN_EQUALS.equals(op)) { return obj1 >=
-		 * obj2; } else if (LESS_THAN.equals(op)) { return obj1 < obj2; } else
-		 * if (lESS_THAN_EQUALS.equals(op)) { return obj1 <= obj2; } }
-		 */
-
 		return false;
 	}
 
