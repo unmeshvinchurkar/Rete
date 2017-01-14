@@ -85,7 +85,7 @@ public class JoinCondition implements Condition {
 
 			Method method2 = bomClass2.getDeclaredMethod(
 					"get" + propertyName2.substring(0, 1).toUpperCase() + propertyName2.substring(1), noparams);
-			Object value2 = method1.invoke(obj2, null);
+			Object value2 = method2.invoke(obj2, null);
 
 			if (comparator == null) {
 				return Operator.compare(value1, operator, value2);

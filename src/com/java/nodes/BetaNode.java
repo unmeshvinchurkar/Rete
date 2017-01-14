@@ -77,15 +77,12 @@ public class BetaNode extends AbstractNode {
 
 		for (Tuple t : leftList) {
 
-			Tuple merged = tuple.mergeTuple(t);
+			Tuple merged = t.mergeTuple(tuple);
 
 			if (isTrueFor(merged)) {
-
 				if (childNode != null) {
-
 					if (childNode instanceof AbstractNode) {
 						AbstractNode cn = (AbstractNode) childNode;
-
 						if (cn.isLeftParent(this)) {
 							cn.sinkLeft(merged);
 						} else {

@@ -51,4 +51,10 @@ public class Tuple {
 	public void setObjects(List<Object> objects) {
 		list.addAll(objects);
 	}
+
+	@Override
+	public String toString() {
+		return "Tuple [list=" + list + "]";
+	}
+
 }

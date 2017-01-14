@@ -20,7 +20,7 @@ import com.java.nodes.Tuple;
 
 public class RulesContainer {
 
-	private Set<Rule> rules = new LinkedHashSet<Rule>();
+	private List<Rule> rules = new ArrayList<Rule>();
 	private RootNode root = null;
 	private Map<Integer, Rule> ruleMap = new HashMap<>();
 
@@ -32,11 +32,11 @@ public class RulesContainer {
 		rules.addAll(r);
 	}
 
-	public Set<Rule> getRules() {
+	public List<Rule> getRules() {
 		return rules;
 	}
 
-	public void setRules(Set<Rule> rules) {
+	public void setRules(List<Rule> rules) {
 		this.rules = rules;
 	}
 	

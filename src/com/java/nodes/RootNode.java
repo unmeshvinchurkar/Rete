@@ -60,8 +60,8 @@ public class RootNode {
 			BetaNode bNode = new BetaNode(c);
 
 			// Remove the parent nodes as they are getting replaced by Beta node
-			Node left = typeParentMap.remove(bNode.getClasses().get(0));
-			Node right = typeParentMap.remove(bNode.getClasses().get(1));
+			Node left = typeParentMap.get(bNode.getClasses().get(0));
+			Node right = typeParentMap.get(bNode.getClasses().get(1));
 
 			usedClasses.add(bNode.getClasses().get(0));
 			usedClasses.add(bNode.getClasses().get(1));

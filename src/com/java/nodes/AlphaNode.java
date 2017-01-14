@@ -83,6 +83,4 @@ public class AlphaNode implements Node {
 		return true;
 	}
 
-	
-
 }

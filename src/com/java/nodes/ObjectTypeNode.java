@@ -34,7 +34,7 @@ public class ObjectTypeNode implements Node {
 		}
 
 		for (Node node : childNodes.values()) {
-			if (node.isTrueFor(tuple)) {
+		//	if (node.isTrueFor(tuple)) {
 
 				if (node instanceof AbstractNode) {
 					AbstractNode an = (AbstractNode) node;
@@ -47,7 +47,7 @@ public class ObjectTypeNode implements Node {
 				} else {
 					node.sinkObject(tuple);
 				}
-			}
+		//	}
 		}
 	}
 

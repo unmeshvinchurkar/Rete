@@ -23,6 +23,7 @@ public class TerminalNode implements Node {
 	public void sinkObject(Tuple tuple) {
 		this.tuple = tuple;
 		isActive = true;
+		ConflictSet.addTuple(ruleId, tuple);
 	}
 
 	public Tuple getTuple() {
