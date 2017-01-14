@@ -27,6 +27,15 @@ public class ObjectTypeNode implements Node {
 		return objectClass;
 	}
 
+	public void removeObject(Tuple tuple) {
+		if (!isTrueFor(tuple)) {
+			return;
+		}
+		for (Node node : childNodes.values()) {
+			node.removeObject(tuple);
+		}
+	}
+
 	public void sinkObject(Tuple tuple) {
 
 		if (!isTrueFor(tuple)) {
@@ -34,20 +43,20 @@ public class ObjectTypeNode implements Node {
 		}
 
 		for (Node node : childNodes.values()) {
-		//	if (node.isTrueFor(tuple)) {
+			// if (node.isTrueFor(tuple)) {
 
-				if (node instanceof AbstractNode) {
-					AbstractNode an = (AbstractNode) node;
+			if (node instanceof AbstractNode) {
+				AbstractNode an = (AbstractNode) node;
 
-					if (an.isLeftParent(this)) {
-						an.sinkLeft(tuple);
-					} else {
-						an.sinkRight(tuple);
-					}
+				if (an.isLeftParent(this)) {
+					an.sinkLeft(tuple);
 				} else {
-					node.sinkObject(tuple);
+					an.sinkRight(tuple);
 				}
-		//	}
+			} else {
+				node.sinkObject(tuple);
+			}
+			// }
 		}
 	}
 

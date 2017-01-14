@@ -13,8 +13,8 @@ public class BetaMemory {
 
 	public BetaMemory() {
 	}
-	
-	public void removeTuple(Tuple tuple){		
+
+	public void removeTuple(Tuple tuple) {
 		leftTupleMemory.remove(tuple);
 		rightTupleMemory.remove(tuple);
 	}

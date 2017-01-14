@@ -1,5 +1,6 @@
 package com.java.nodes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractNode implements Node {
@@ -25,6 +26,35 @@ public abstract class AbstractNode implements Node {
 
 	public void addChildNode(Node node) {
 		childNode = node;
+	}
+
+	public void removeObject(Tuple tuple) {
+
+		List<Tuple> tuples = memory.getLeftTupleMemory();
+		List<Tuple> removeT = new ArrayList<>();
+
+		for (Tuple oldTuple : tuples) {
+			if (oldTuple.contains(tuple.getObjects().get(0))) {
+				removeT.add(oldTuple);
+			}
+		}
+
+		tuples.removeAll(removeT);
+		removeT.clear();
+
+		tuples = memory.getRightTupleMemory();
+
+		for (Tuple oldTuple : tuples) {
+			if (oldTuple.contains(tuple.getObjects().get(0))) {
+				removeT.add(oldTuple);
+			}
+		}
+		tuples.removeAll(removeT);
+		removeT.clear();
+
+		if (childNode != null) {
+			childNode.removeObject(tuple);
+		}
 	}
 
 	public void sinkLeft(Tuple tuple) {

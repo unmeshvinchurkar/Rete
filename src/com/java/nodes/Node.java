@@ -11,4 +11,6 @@ public interface Node {
 	public boolean contains(Node node);
 
 	public boolean isTrueFor(Tuple tuple);
+	
+	public void removeObject(Tuple tuple) ;
 }

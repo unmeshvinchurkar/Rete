@@ -85,4 +85,8 @@ public class TerminalNode implements Node {
 		return true;
 	}
 
+	@Override
+	public void removeObject(Tuple obj) {		
+	}
+
 }

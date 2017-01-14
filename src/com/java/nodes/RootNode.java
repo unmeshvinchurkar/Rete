@@ -46,7 +46,7 @@ public class RootNode {
 			} else {
 				alpha = parent.getChildNode(alpha);
 			}
-			
+
 			parent = alpha;
 			typeParentMap.put(cl, parent);
 		}
@@ -116,6 +116,12 @@ public class RootNode {
 	public void sinkObject(Tuple tuple) {
 		for (ObjectTypeNode node : oNodes.values()) {
 			node.sinkObject(tuple);
+		}
+	}
+
+	public void removeObject(Tuple obj) {
+		for (ObjectTypeNode node : oNodes.values()) {
+			node.removeObject(obj);
 		}
 	}
 

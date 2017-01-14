@@ -38,6 +38,15 @@ public class AlphaNode implements Node {
 		return c.isTrueFor(tuple.getObjects().get(0));
 	}
 
+	public void removeObject(Tuple tuple) {
+		if (!isTrueFor(tuple)) {
+			return;
+		}
+		for (Node node : childNodes.values()) {
+			node.removeObject(tuple);
+		}
+	}
+
 	public void sinkObject(Tuple tuple) {
 		
 		if (!isTrueFor(tuple)) {

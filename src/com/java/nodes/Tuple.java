@@ -11,6 +11,10 @@ public class Tuple {
 
 	public Tuple() {
 	}
+	
+	public boolean contains(Object obj){
+		return list.contains(obj);
+	}
 
 	public Tuple(Object obj) {
 		list.add(obj);
