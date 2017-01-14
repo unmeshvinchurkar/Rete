@@ -20,6 +20,11 @@ public class TerminalNode implements Node {
 	}
 
 	@Override
+	public void removeObject(Tuple tuple) {
+		ConflictSet.remove(ruleId);
+	}
+
+	@Override
 	public void sinkObject(Tuple tuple) {
 		this.tuple = tuple;
 		isActive = true;
@@ -83,10 +88,6 @@ public class TerminalNode implements Node {
 	@Override
 	public boolean isTrueFor(Tuple tuple) {
 		return true;
-	}
-
-	@Override
-	public void removeObject(Tuple obj) {		
 	}
 
 }

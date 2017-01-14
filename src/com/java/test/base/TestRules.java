@@ -47,9 +47,9 @@ public class TestRules {
 		r2.addCondition(c2);
 		r2.addAction(a1);
 
-//		Rule r3 = new Rule();
-//		r3.addCondition(c3);
-//		r3.addAction(a1);
+		// Rule r3 = new Rule();
+		// r3.addCondition(c3);
+		// r3.addAction(a1);
 
 		/// Create objects /////////////////////////////////////
 		Student stud = new Student();
@@ -65,15 +65,22 @@ public class TestRules {
 		RulesContainer container = new RulesContainer();
 		container.addRule(r1);
 		container.addRule(r2);
-		//container.addRule(r3);
+		// container.addRule(r3);
 		container.compile();
 		container.sinkObject(stud);
 		container.sinkObject(maths);
 
 		ConflictSet.print();
-		if (c2.isTrueFor(stud)) {
-			r1.fire(new Object[] { stud });
-		}
+//		if (c2.isTrueFor(stud)) {
+//			r1.fire(new Object[] { stud });
+//		}
+		
+		System.out.println("__________________________________________________");
+		
+		container.removeObject(maths);
+		
+		
+		ConflictSet.print();
 
 		System.out.println("canonical name: " + stud.getClass().getCanonicalName());
 		System.out.println("canonical name: " + stud.getClass().getName());

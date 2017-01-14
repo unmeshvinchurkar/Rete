@@ -39,9 +39,13 @@ public class RulesContainer {
 	public void setRules(List<Rule> rules) {
 		this.rules = rules;
 	}
-	
-	public void sinkObject(Object obj){		
+
+	public void sinkObject(Object obj) {
 		root.sinkObject(new Tuple(obj));
+	}
+
+	public void removeObject(Object obj) {
+		root.removeObject(new Tuple(obj));
 	}
 
 	public void compile() {
@@ -53,7 +57,7 @@ public class RulesContainer {
 			ruleMap.put(r.getId(), r);
 			root.addRule(r);
 		}
-		
+
 		this.root = root;
 	}
 
