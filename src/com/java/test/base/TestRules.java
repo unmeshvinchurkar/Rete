@@ -33,14 +33,9 @@ public class TestRules {
 				List targetObjs = new ArrayList<>();
 				Student s = null;
 
-				Object obj = tuple.getObjectsByClass(Student.class);
+				List<Object> objList = tuple.getObjectsByClass(Student.class);
 
-				if (obj instanceof Collection) {
-					s = (Student) ((Collection) obj).toArray()[0];
-				} else {
-					s = (Student) obj;
-				}
-
+				s = (Student) objList.get(0);
 				s.setPoints(s.getPoints() + 50);
 				targetObjs.add(s);
 				return targetObjs;
