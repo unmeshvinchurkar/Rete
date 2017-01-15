@@ -12,7 +12,7 @@ import java.util.List;
  * @author UnmeshVinchurkar
  *
  */
-public class JoinCondition implements Condition {
+public class JoinCondition implements Condition, Comparable {
 
 	private Class bomClass1;
 	private Class bomClass2;
@@ -165,6 +165,25 @@ public class JoinCondition implements Condition {
 	@Override
 	public boolean isTrueFor(Object obj1) {
 		throw new IllegalArgumentException("Method not defined");
+	}
+
+	@Override
+	public int compareTo(Object o) {
+
+		if (!(o instanceof JoinCondition)) {
+			return -1;
+		}
+		JoinCondition dc = (JoinCondition) o;
+
+		if (this.bomClass1.getName().compareTo(dc.bomClass1.getName()) != 0) {
+			return this.bomClass1.getName().compareTo(dc.bomClass1.getName());
+		}
+
+		if (this.propertyName1.compareTo(dc.propertyName1) != 0) {
+			return this.propertyName1.compareTo(dc.propertyName1);
+		}
+
+		return this.propertyName2.compareTo(dc.propertyName2);
 	}
 
 }

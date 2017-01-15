@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class DefaultCondition implements Condition {
+public class DefaultCondition implements Condition, Comparable {
 
 	private Class bomClass;
 	private String propertyName;
 	private Object propertyValue;
 	private Operator operator;
 	private Comparator comparator;
-	
+
 	private String className = null;
 
 	private static int id_counter = 0;
@@ -142,6 +142,19 @@ public class DefaultCondition implements Condition {
 		return true;
 	}
 
+	@Override
+	public int compareTo(Object o) {
 
+		if (!(o instanceof DefaultCondition)) {
+			return 1;
+		}
+		DefaultCondition dc = (DefaultCondition) o;
+
+		if (this.className.compareTo(dc.className) != 0) {
+			return this.className.compareTo(dc.className);
+		}
+
+		return this.propertyName.compareTo(dc.propertyName);
+	}
 
 }

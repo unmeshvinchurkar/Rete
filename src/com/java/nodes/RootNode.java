@@ -1,6 +1,8 @@
 package com.java.nodes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,6 +33,9 @@ public class RootNode {
 		}
 
 		List<Condition> oConditions = rule.getObjectConditions();
+		List list = oConditions;
+
+		Collections.sort(list);
 
 		// Create alpha nodes //////////////////////////////
 		for (Condition c : oConditions) {
@@ -64,11 +69,11 @@ public class RootNode {
 			// Remove the parent nodes as they are getting replaced by Beta node
 			Node left = typeParentMap.get(bNode.getClasses().get(0));
 			Node right = typeParentMap.get(bNode.getClasses().get(1));
+			
+            usedClasses.add(bNode.getClasses().get(0));
+            usedClasses.add(bNode.getClasses().get(1));
 
-			usedClasses.add(bNode.getClasses().get(0));
-			usedClasses.add(bNode.getClasses().get(1));
-
-			if (left != null && right != null) {
+			if (left != null && right != null) {				
 				bNode.setLeftParent(left);
 				bNode.setRightParent(right);
 				left.addChildNode(bNode);

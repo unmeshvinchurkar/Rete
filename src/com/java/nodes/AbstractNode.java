@@ -5,11 +5,15 @@ import java.util.List;
 
 public abstract class AbstractNode implements Node {
 
-	private Node leftParent = null;
-	private Node rightParent = null;
+	protected Node leftParent = null;
+	protected Node rightParent = null;
 
 	protected BetaMemory memory = new BetaMemory();
 	protected Node childNode = null;
+
+	public boolean checkConstraints(Tuple leftTuple, Tuple rightTuple) {
+		return true;
+	}
 
 	public void sinkObject(Tuple tuple) {
 		sinkLeft(tuple);
@@ -63,6 +67,10 @@ public abstract class AbstractNode implements Node {
 		List<Tuple> rightList = memory.getRightTupleMemory();
 		for (Tuple t : rightList) {
 
+			if (!checkConstraints(tuple, t)) {
+				return;
+			}
+
 			Tuple merged = tuple.mergeTuple(t);
 
 			if (isTrueFor(merged)) {
@@ -91,6 +99,10 @@ public abstract class AbstractNode implements Node {
 		List<Tuple> leftList = memory.getLeftTupleMemory();
 
 		for (Tuple t : leftList) {
+			
+			if (!checkConstraints(t, tuple)) {
+				return;
+			}
 
 			Tuple merged = t.mergeTuple(tuple);
 
