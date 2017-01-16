@@ -20,7 +20,7 @@ public class JoinNode extends AbstractNode {
 	 */
 	public boolean checkConstraints(Tuple leftTuple, Tuple rightTuple) {
 
-		if ((leftParent instanceof BetaNode) && rightParent instanceof BetaNode) {
+	//	if ((leftParent instanceof BetaNode) && rightParent instanceof BetaNode) {
 
 			Map<Class, Object> leftMap = leftTuple.getClassObjectsMap();
 			Map<Class, Object> rightMap = rightTuple.getClassObjectsMap();
@@ -33,7 +33,7 @@ public class JoinNode extends AbstractNode {
 					}
 				}
 			}
-		}
+	//	}
 		return true;
 	}
 }

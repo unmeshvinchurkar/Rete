@@ -41,7 +41,7 @@ public class TestRules {
 				return targetObjs;
 			}
 		};
-		Action a1 = new Action("points", t1);
+		Action a1 = new Action(Student.class, "points", t1);
 
 		Rule r1 = new Rule();
 		r1.addCondition(c1);
@@ -80,7 +80,7 @@ public class TestRules {
 		Collection<Integer> activeRuleIds = ConflictSet.getActiveRuleIds();
 
 		for (Integer ruleId : activeRuleIds) {
-			container.getRuleById(ruleId).fire(ConflictSet.getTupleByRuleId(ruleId));
+			container.getRuleById(ruleId).fire(ConflictSet.getTuplesByRuleId(ruleId).get(0));
 		}
 
 		// if (c2.isTrueFor(stud)) {

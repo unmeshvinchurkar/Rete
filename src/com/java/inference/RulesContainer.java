@@ -13,6 +13,7 @@ import com.java.base.Condition;
 import com.java.base.Rule;
 import com.java.nodes.AlphaNode;
 import com.java.nodes.BetaNode;
+import com.java.nodes.ConflictSet;
 import com.java.nodes.ObjectTypeNode;
 import com.java.nodes.RootNode;
 import com.java.nodes.TerminalNode;
@@ -23,6 +24,19 @@ public class RulesContainer {
 	private List<Rule> rules = new ArrayList<Rule>();
 	private RootNode root = null;
 	private Map<Integer, Rule> ruleMap = new HashMap<>();
+	private Set objectMemory = new LinkedHashSet();
+
+	public void addObject(Object o) {
+		objectMemory.add(o);
+	}
+
+	public void addObjects(Collection<Object> objList) {
+		objectMemory.addAll(objList);
+	}
+
+	public void clearObjectMemory() {
+		objectMemory.clear();
+	}
 
 	public void addRule(Rule r) {
 		rules.add(r);
@@ -55,6 +69,22 @@ public class RulesContainer {
 		root.removeObject(new Tuple(obj));
 	}
 
+	public void run() {
+
+		// ConflictSet.getActiveRuleIds();
+		// ConflictSet.getTupleByRuleId(ruleId);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+
 	public void compile() {
 		// Create Root node
 		RootNode root = new RootNode();
@@ -66,6 +96,14 @@ public class RulesContainer {
 		}
 
 		this.root = root;
+	}
+
+	public void clearConflictSet() {
+		ConflictSet.clear();
+	}
+
+	public Collection<Integer> getActiveRuleIds() {
+		return ConflictSet.getActiveRuleIds();
 	}
 
 }

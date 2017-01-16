@@ -75,26 +75,17 @@ public class Rule {
 		return isFired;
 	}
 
-	public List getTargetObjects() {
-		List targets = new ArrayList();
-
-		for (Action action : actions) {
-			targets.addAll(action.getTargetObjects());
-		}
-		return targets;
-	}
-
-	public List<Class> getTargetObjectClasses() {
-		List<Class> targetClasses = new ArrayList<Class>();
-
-		for (Action action : actions) {
-			targetClasses.addAll(action.getTargetObjectClasses());
-		}
-		return targetClasses;
-	}
-
 	public Set<Class> getBoms() {
 		return boms;
+	}
+
+	public List<Class> getTargetClasses() {
+		List<Class> list = new ArrayList<>();
+
+		for (Action act : actions) {
+			list.addAll(act.getTargetClasses());
+		}
+		return list;
 	}
 
 	public void addCondition(Condition c) {

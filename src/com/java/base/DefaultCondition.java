@@ -23,6 +23,10 @@ public class DefaultCondition implements Condition, Comparable {
 	public void setRuleId(int ruleId) {
 		this.ruleId = ruleId;
 	}
+	
+	public Operator getOperator() {
+		return operator;
+	}
 
 	public int getRuleId() {
 		return this.ruleId;

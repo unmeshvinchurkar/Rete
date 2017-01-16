@@ -12,7 +12,7 @@ public class Action {
 	private String fieldName = null;
 	private Task task = null;
 	private int id;
-	private List targetObjects = null;
+	private List<Class> targetClasses = new ArrayList<>();
 	private int ruleId;
 
 	public void setRuleId(int ruleId) {
@@ -23,30 +23,22 @@ public class Action {
 		return this.ruleId;
 	}
 
-	public Action(String fieldName, Task task) {
+	public Action(Class targetClass, String fieldName, Task task) {
 		this.fieldName = fieldName;
 		this.task = task;
+		this.targetClasses.add(targetClass);
+		this.id = (++id_counter);
+	}
+
+	public Action(List<Class> targetClasses, String fieldName, Task task) {
+		this.fieldName = fieldName;
+		this.task = task;
+		this.targetClasses = targetClasses;
 		this.id = (++id_counter);
 	}
 
 	public Action() {
 		this.id = (++id_counter);
-	}
-
-	public List getTargetObjects() {
-		return targetObjects;
-	}
-
-	public List<Class> getTargetObjectClasses() {
-		List<Class> targetClasses = new ArrayList<Class>();
-
-		if (targetObjects != null) {
-			for (Object obj : targetObjects) {
-				targetClasses.add(obj.getClass());
-			}
-		}
-
-		return targetClasses;
 	}
 
 	public int getId() {
@@ -65,9 +57,17 @@ public class Action {
 		this.fieldName = fieldName;
 	}
 
+	public Task getTask() {
+		return task;
+	}
+
+	public List<Class> getTargetClasses() {
+		return targetClasses;
+	}
+
 	public void execute(Tuple tuple) {
-		targetObjects = null;
-		targetObjects = task.execute(tuple);
+
+		task.execute(tuple);
 	}
 
 	@Override

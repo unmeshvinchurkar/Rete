@@ -24,6 +24,10 @@ public class JoinCondition implements Condition, Comparable {
 	private int id;
 	private int ruleId;
 
+	public Operator getOperator() {
+		return operator;
+	}
+
 	public void setRuleId(int ruleId) {
 		this.ruleId = ruleId;
 	}
@@ -54,7 +58,6 @@ public class JoinCondition implements Condition, Comparable {
 		List<Class> list = new ArrayList<>();
 		list.add(bomClass1);
 		list.add(bomClass2);
-		;
 		return list;
 	}
 

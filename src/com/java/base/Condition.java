@@ -20,6 +20,8 @@ public interface Condition {
 	public int getRuleId();
 
 	public int getId();
+	
+	public Operator getOperator();
 
 	public int hashCode();
 
