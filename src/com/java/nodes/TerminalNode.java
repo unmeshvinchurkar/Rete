@@ -21,7 +21,7 @@ public class TerminalNode implements Node {
 
 	@Override
 	public void removeObject(Tuple tuple) {
-		ConflictSet.remove(ruleId);
+		ConflictSet.removeTuple(ruleId, tuple);
 	}
 
 	@Override

@@ -79,8 +79,8 @@ public class Rule {
 		return boms;
 	}
 
-	public List<Class> getTargetClasses() {
-		List<Class> list = new ArrayList<>();
+	public Set<Class> getTargetClasses() {
+		Set<Class> list = new HashSet<>();
 
 		for (Action act : actions) {
 			list.addAll(act.getTargetClasses());
