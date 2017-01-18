@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,7 @@ public class ObjectTypeNode implements Node {
 
 	private String objectType = null;
 	private Class objectClass = null;
-	private Map<Node, Node> childNodes = new HashMap<Node, Node>();
+	private Map<Node, Node> childNodes = new LinkedHashMap<Node, Node>();
 
 	public ObjectTypeNode(Class objectClass) {
 		this.objectClass = objectClass;

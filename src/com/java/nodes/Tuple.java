@@ -1,7 +1,8 @@
 package com.java.nodes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class Tuple {
 	}
 
 	public Map<Class, Object> getClassObjectsMap() {
-		Map<Class, Object> map = new HashMap<>();
+		Map<Class, Object> map = new LinkedHashMap<>();
 		for (Object o : list) {
 			map.put(o.getClass(), o);
 		}

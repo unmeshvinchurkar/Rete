@@ -211,13 +211,14 @@ public class TestFlight {
 		r9.addAction(bonus20);
 
 		RulesContainer container = new RulesContainer();
+
+		container.addRule(r5);
+		container.addRule(r6);
+		container.addRule(r7);
 		container.addRule(r1);
 		container.addRule(r2);
 		container.addRule(r3);
 		container.addRule(r4);
-		container.addRule(r5);
-		container.addRule(r6);
-		container.addRule(r7);
 		container.addRule(r8);
 		container.addRule(r9);
 		container.compile();
@@ -233,34 +234,12 @@ public class TestFlight {
 
 		container.addObject(fl);
 		container.addObject(acc);
-		
 
 		container.run();
 
 		System.out.println("Account:  " + acc);
 
 		System.out.println("Flight:  " + fl);
-		
-
-		// 3-flights-for-5k-in-March
-
-		// Condition c13 = new DefaultCondition(Account.class, "signedUpFor",
-		// Operator.EQUALS,
-		// "3-flights-for-5k-in-March");
-		//
-		//
-		//
-		// Task signedUp = new Task() {
-		// public List execute(Tuple tuple) {
-		// List targetObjs = new ArrayList<>();
-		// Account a = null;
-		// List<Object> objList = tuple.getObjectsByClass(Account.class);
-		// a = (Account) objList.get(0);
-		// a.setAwardMilesCurrentYear((int)(a.getAwardMilesCurrentYear() +
-		// 500));
-		// targetObjs.add(a);
-		// return targetObjs;
-		// }
 
 	}
 

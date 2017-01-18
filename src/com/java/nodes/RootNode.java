@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +15,7 @@ import com.java.base.Rule;
 
 public class RootNode {
 
-	private Map<String, ObjectTypeNode> oNodes = new HashMap<>();
+	private Map<String, ObjectTypeNode> oNodes = new LinkedHashMap<>();
 
 	public void addRule(Rule rule) {
 

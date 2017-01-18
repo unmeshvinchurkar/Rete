@@ -3,7 +3,7 @@ package com.java.inference;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -22,8 +22,8 @@ public class RulesContainer {
 
 	private List<Rule> rules = new ArrayList<Rule>();
 	private RootNode root = null;
-	private Map<Integer, Rule> ruleMap = new HashMap<>();
-	private Map<Integer, Set<String>> rulePatternMap = new HashMap<Integer, Set<String>>();
+	private Map<Integer, Rule> ruleMap = new LinkedHashMap<>();
+	private Map<Integer, Set<String>> rulePatternMap = new LinkedHashMap<Integer, Set<String>>();
 	private Set<Object> objectMemory = new LinkedHashSet<>();
 
 	public void addObject(Object o) {
@@ -107,7 +107,6 @@ public class RulesContainer {
 				aRuleIds.removeAll(removeRules);
 
 				// Resolve conflict set
-
 				// This map contains resolve rule ids at the end of next
 				// for-loop
 
@@ -134,12 +133,19 @@ public class RulesContainer {
 						
 					
 						// Rule with more conditions is given a priority
+
+						if (ConflictSet.getTimeStamp(currentRuleId) < ConflictSet.getTimeStamp(intersectedRuleId)) {
+							ruleId_TargerCl.remove(intersectedRuleId);
+							ruleId_TargerCl.put(currentRuleId, targetClasses);
+						}
+
+						/**
 						if (ruleMap.get(intersectedRuleId).getConditions().size() < ruleMap.get(currentRuleId)
 								.getConditions().size()) {
 							ruleId_TargerCl.remove(intersectedRuleId);
 							ruleId_TargerCl.put(currentRuleId, targetClasses);
 
-						}
+						}*/
 						
 					
 
@@ -258,7 +264,7 @@ public class RulesContainer {
 	public void compile() {
 		// Create Root node
 		RootNode root = new RootNode();
-		Map<Integer, Rule> ruleMap = new HashMap<>();
+		Map<Integer, Rule> ruleMap = new LinkedHashMap<>();
 
 		for (Rule r : rules) {
 			ruleMap.put(r.getId(), r);
