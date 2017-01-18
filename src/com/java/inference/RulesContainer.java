@@ -126,14 +126,12 @@ public class RulesContainer {
 				// If a rule is already fired with a given pattern
 				// remove it from the list
 				for (Integer ruleId : ruleId_TargerCl.keySet()) {
-					
+
 					Tuple tuple = (Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0];
 					if (isRuleAlreadyFired(tuple, ruleId)) {
 						ruleId_TargerCl.remove(ruleId);
 					}
 				}
-				
-				
 
 				// Fire Rules and collect modified objects
 				for (Integer ruleId : ruleId_TargerCl.keySet()) {
@@ -183,7 +181,7 @@ public class RulesContainer {
 							"get" + pName.substring(0, 1).toUpperCase() + pName.substring(1), noparams);
 					Object value = method.invoke(obj, null);
 
-					patternKey = patternKey + "_" + value.toString();
+					patternKey = patternKey + "_" + obj.hashCode() + "_" + value.toString();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
