@@ -1,6 +1,8 @@
 package com.java.base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +105,9 @@ public class Rule {
 		}
 	}
 
-	public List<Condition> getConditions() {
+	public List<Condition> getConditions() {		
+		List localC= conditions;
+		Collections.sort(localC);
 		return conditions;
 	}
 

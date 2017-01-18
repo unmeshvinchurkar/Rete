@@ -80,7 +80,7 @@ public class TestRules {
 		Collection<Integer> activeRuleIds = ConflictSet.getActiveRuleIds();
 
 		for (Integer ruleId : activeRuleIds) {
-			container.getRuleById(ruleId).fire(ConflictSet.getTuplesByRuleId(ruleId).get(0));
+			container.getRuleById(ruleId).fire((Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0]);
 		}
 
 		// if (c2.isTrueFor(stud)) {

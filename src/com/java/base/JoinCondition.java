@@ -53,6 +53,13 @@ public class JoinCondition implements Condition, Comparable {
 		this.propertyName2 = propertyName2;
 		this.id = (++id_counter);
 	}
+	
+	public List<String> getPropertyNames() {
+		List<String> list = new ArrayList<>();
+		list.add(propertyName1);
+		list.add(propertyName2);
+		return list;
+	}
 
 	public List<Class> getBoms() {
 		List<Class> list = new ArrayList<>();
@@ -69,6 +76,43 @@ public class JoinCondition implements Condition, Comparable {
 
 	public boolean isJoin() {
 		return true;
+	}
+
+	public String getValuePattern(Object obj1, Object obj2) {
+		Class noparams[] = {};
+
+		if (obj1.getClass().equals(bomClass2) && obj2.getClass().equals(bomClass1)) {
+			Object tmp = obj2;
+			obj2 = obj1;
+			obj1 = tmp;
+		}
+
+		try {
+
+			Method method1 = bomClass1.getDeclaredMethod(
+					"get" + propertyName1.substring(0, 1).toUpperCase() + propertyName1.substring(1), noparams);
+			Object value1 = method1.invoke(obj1, null);
+
+			Method method2 = bomClass2.getDeclaredMethod(
+					"get" + propertyName2.substring(0, 1).toUpperCase() + propertyName2.substring(1), noparams);
+			Object value2 = method2.invoke(obj2, null);
+
+			String pattern = value1.toString() + "_" + value2.toString();
+
+			return pattern;
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public boolean isTrueFor(Object obj1, Object obj2) {

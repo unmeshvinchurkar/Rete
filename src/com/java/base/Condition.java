@@ -20,11 +20,13 @@ public interface Condition {
 	public int getRuleId();
 
 	public int getId();
-	
+
 	public Operator getOperator();
 
 	public int hashCode();
 
 	public boolean equals(Object obj);
+
+	public List<String> getPropertyNames();
 
 }

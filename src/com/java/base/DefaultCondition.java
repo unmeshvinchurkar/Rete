@@ -23,7 +23,7 @@ public class DefaultCondition implements Condition, Comparable {
 	public void setRuleId(int ruleId) {
 		this.ruleId = ruleId;
 	}
-	
+
 	public Operator getOperator() {
 		return operator;
 	}
@@ -57,6 +57,12 @@ public class DefaultCondition implements Condition, Comparable {
 		this.id = (++id_counter);
 		className = this.bomClass.getCanonicalName();
 	}
+	
+	public List<String> getPropertyNames() {
+		List<String> list = new ArrayList<>();
+		list.add(propertyName);
+		return list;
+	}
 
 	public List<Class> getBoms() {
 		List<Class> list = new ArrayList<>();
@@ -71,6 +77,30 @@ public class DefaultCondition implements Condition, Comparable {
 
 	public boolean isTrueFor(Object obj) {
 		return isTrueFor(obj, null);
+	}
+
+	public String getValuePattern(Object obj, Object obj2) {
+
+		try {
+			Class noparams[] = {};
+			Method method = bomClass.getDeclaredMethod(
+					"get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1), noparams);
+			Object value = method.invoke(obj, null);
+
+			// String pattern = bomClass.getName().hashCode() + "" +
+			// propertyName.hashCode() + ""
+			// + ((value != null) ? value.hashCode() + "" : "");
+
+			String pattern = value.toString();
+
+			return pattern;
+
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public boolean isTrueFor(Object obj, Object obj2) {
@@ -160,5 +190,7 @@ public class DefaultCondition implements Condition, Comparable {
 
 		return this.propertyName.compareTo(dc.propertyName);
 	}
+
+	
 
 }
