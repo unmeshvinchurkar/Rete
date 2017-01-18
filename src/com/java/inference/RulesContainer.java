@@ -1,6 +1,5 @@
 package com.java.inference;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,12 +13,8 @@ import java.util.Set;
 import com.java.base.Action;
 import com.java.base.Condition;
 import com.java.base.Rule;
-import com.java.nodes.AlphaNode;
-import com.java.nodes.BetaNode;
 import com.java.nodes.ConflictSet;
-import com.java.nodes.ObjectTypeNode;
 import com.java.nodes.RootNode;
-import com.java.nodes.TerminalNode;
 import com.java.nodes.Tuple;
 
 public class RulesContainer {
@@ -29,7 +24,6 @@ public class RulesContainer {
 	private Map<Integer, Rule> ruleMap = new HashMap<>();
 	private Map<Integer, Set<String>> rulePatternMap = new HashMap<Integer, Set<String>>();
 	private Set<Object> objectMemory = new LinkedHashSet<>();
-	private Set usedPatterns = new HashSet();
 
 	public void addObject(Object o) {
 		objectMemory.add(o);
@@ -82,8 +76,16 @@ public class RulesContainer {
 
 	public void run() {
 
-		for (Object memObject : objectMemory) {
+		Object[] memoryObjects = objectMemory.toArray();
+
+		if (memoryObjects == null || memoryObjects.length == 0) {
+			return;
+		}
+
+		for (Object memObject : memoryObjects) {
 			root.sinkObject(new Tuple(memObject));
+			
+			objectMemory.remove(memObject);
 
 			Collection<Integer> aRuleIds = ConflictSet.getActiveRuleIds();
 
@@ -100,6 +102,8 @@ public class RulesContainer {
 
 					// ConflictSet.getTuplesByRuleId(ruleId);
 
+					// If two rule try to modify same type of object
+					// then fire that rule which has more number of conditions
 					Set<Class> targetClasses = ruleMap.get(currentRuleId).getTargetClasses();
 					Integer intersectedRuleId = doIntersect(targetClasses, ruleId_TargerCl);
 
@@ -144,16 +148,22 @@ public class RulesContainer {
 					}
 				}
 
+				// modifiedObjects contains changed objects
+
 				// Remove old objects
 				objectMemory.removeAll(modifiedObjects);
 
-				// Remove old objects from the networl=k
+				// Remove old objects from the network
 				this.removeObjects(modifiedObjects);
 
 				// Add New Objects to working memory
 				objectMemory.addAll(modifiedObjects);
+				
+				
 			}
 		}
+
+		run();
 	}
 
 	private boolean isRuleAlreadyFired(Tuple tuple, Integer ruleId) {
