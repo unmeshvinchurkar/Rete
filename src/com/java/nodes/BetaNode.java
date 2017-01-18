@@ -28,7 +28,7 @@ public class BetaNode extends AbstractNode {
 		return joinCondition.isTrueFor(tuple.getObjects().get(0), tuple.getObjects().get(1));
 	}
 
-	@Override
+/*	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -51,5 +51,5 @@ public class BetaNode extends AbstractNode {
 		} else if (!joinCondition.equals(other.joinCondition))
 			return false;
 		return true;
-	}
+	}*/
 }

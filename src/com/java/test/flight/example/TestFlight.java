@@ -69,11 +69,11 @@ public class TestFlight {
 
 		Action actionGold = new Action(Account.class, "status", taskGold);
 		Rule r3 = new Rule();
-		r3.addCondition(c4);
+		r3.addCondition(c3);
 		r3.addAction(actionGold);
 
 		Rule r4 = new Rule();
-		r4.addCondition(c3);
+		r4.addCondition(c4);
 		r4.addAction(actionGold);
 
 		// If flight is less than 500 miles then award 500 miles
@@ -114,7 +114,7 @@ public class TestFlight {
 
 				a.setAwardMilesCurrentYear(a.getAwardMilesCurrentYear() + fl.getMiles());
 				targetObjs.add(a);
-				System.out.println("Awarded Flight miles");
+				System.out.println("Awarded Flight miles(as miles >500)");
 
 				return targetObjs;
 			}
