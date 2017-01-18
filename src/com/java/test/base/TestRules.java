@@ -72,8 +72,16 @@ public class TestRules {
 		container.addRule(r2);
 		// container.addRule(r3);
 		container.compile();
-		container.sinkObject(stud);
-		container.sinkObject(maths);
+		//container.sinkObject(stud);
+		//container.sinkObject(maths);
+		
+		container.addObject(stud);
+		container.addObject(maths);
+		
+		container.run();
+		
+		
+		/**
 
 		ConflictSet.print();
 
@@ -81,7 +89,7 @@ public class TestRules {
 
 		for (Integer ruleId : activeRuleIds) {
 			container.getRuleById(ruleId).fire((Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0]);
-		}
+		}*/
 
 		// if (c2.isTrueFor(stud)) {
 		// r1.fire( new Tuple(stud ));
