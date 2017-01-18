@@ -16,6 +16,8 @@ public class Operator {
 	public static final Operator lESS_THAN_EQUALS = new Operator("<=");
 	public static final Operator EQUALS = new Operator("==");
 	public static final Operator NOT_EQUALS = new Operator("!=");
+	public static final Operator NULL = new Operator("null");
+	public static final Operator NOT_NULL = new Operator("not_null");
 
 	private Operator(String operator) {
 		cMap.put(operator, this);
@@ -49,11 +51,23 @@ public class Operator {
 
 	public static boolean compare(Object value1, Operator op, Object value2) {
 
-		if (value1 == null || value2 == null) {
-			return false;
-		} else if (value1.getClass() != value2.getClass()) {
+		if (value1 == null) {
 			return false;
 		}
+
+		if (NULL.equals(op)) {
+			return value1 == null;
+		} else if (NOT_NULL.equals(op)) {
+			return value1 != null;
+		}
+
+		if (value2 == null) {
+			return false;
+		}
+
+		 else if (value1.getClass() != value2.getClass()) {
+		   return false;
+		 }
 
 		if (value1 instanceof Comparable) {
 			int result = ((Comparable) value1).compareTo(value2);

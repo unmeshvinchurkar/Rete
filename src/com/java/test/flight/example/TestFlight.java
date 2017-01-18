@@ -50,7 +50,7 @@ public class TestFlight {
 		// if award miles for last year or current year > 100,000 then status =
 		// Gold
 		Condition c3 = new DefaultCondition(Account.class, "awardMilesLastYear", Operator.GREATER_THAN, 100000);
-		Condition c4 = new DefaultCondition(Account.class, "awardMilesCurrentYear", Operator.GREATER_THAN, 100000);
+		Condition c4 = new DefaultCondition(Account.class, "awardMilesCurrentYear", Operator.GREATER_THAN_EQUALS, 100000);
 
 		Task taskGold = new Task() {
 			public List execute(Tuple tuple) {
@@ -211,21 +211,25 @@ public class TestFlight {
 		r9.addAction(bonus20);
 
 		RulesContainer container = new RulesContainer();
+		
+		
 
 		container.addRule(r5);
 		container.addRule(r6);
 		container.addRule(r7);
+		
 		container.addRule(r1);
 		container.addRule(r2);
 		container.addRule(r3);
 		container.addRule(r4);
+		
 		container.addRule(r8);
 		container.addRule(r9);
 		container.compile();
 
 		Account acc = new Account("Unmesh");
 		acc.setFlightId(1);
-		acc.setAwardMilesCurrentYear(150000);
+		acc.setAwardMilesCurrentYear(98000);
 
 		Flight fl = new Flight(1);
 		fl.setAirLineType("notPartner");

@@ -132,23 +132,19 @@ public class RulesContainer {
 						// In case of rule intersection use the first rule
 						
 					
-						// Rule with more conditions is given a priority
+						// Rule with more conditions is given a priority				
 
-						if (ConflictSet.getTimeStamp(currentRuleId) < ConflictSet.getTimeStamp(intersectedRuleId)) {
-							ruleId_TargerCl.remove(intersectedRuleId);
-							ruleId_TargerCl.put(currentRuleId, targetClasses);
-						}
-
-						/**
+						
 						if (ruleMap.get(intersectedRuleId).getConditions().size() < ruleMap.get(currentRuleId)
 								.getConditions().size()) {
 							ruleId_TargerCl.remove(intersectedRuleId);
 							ruleId_TargerCl.put(currentRuleId, targetClasses);
 
-						}*/
-						
-					
-
+						}
+						else if (ConflictSet.getTimeStamp(currentRuleId) < ConflictSet.getTimeStamp(intersectedRuleId)) {
+							ruleId_TargerCl.remove(intersectedRuleId);
+							ruleId_TargerCl.put(currentRuleId, targetClasses);
+						}
 					}
 				}
 				// -------------------------------------------------------------------------------------
