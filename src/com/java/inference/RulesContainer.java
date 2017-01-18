@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +111,7 @@ public class RulesContainer {
 				// This map contains resolve rule ids at the end of next
 				// for-loop
 
-				Map<Integer, Set<Class>> ruleId_TargerCl = new HashMap<>();
+				Map<Integer, Set<Class>> ruleId_TargerCl = new LinkedHashMap<>();
 
 				for (Integer currentRuleId : aRuleIds) {
 
@@ -125,6 +126,13 @@ public class RulesContainer {
 						ruleId_TargerCl.put(currentRuleId, targetClasses);
 
 					} else {
+						
+						//ruleId_TargerCl.remove(currentRuleId);
+						// ruleId_TargerCl.put(currentRuleId, targetClasses);
+						
+						// In case of rule intersection use the first rule
+						
+					
 						// Rule with more conditions is given a priority
 						if (ruleMap.get(intersectedRuleId).getConditions().size() < ruleMap.get(currentRuleId)
 								.getConditions().size()) {
@@ -132,6 +140,8 @@ public class RulesContainer {
 							ruleId_TargerCl.put(currentRuleId, targetClasses);
 
 						}
+						
+					
 
 					}
 				}
