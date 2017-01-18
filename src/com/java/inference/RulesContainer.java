@@ -84,12 +84,26 @@ public class RulesContainer {
 
 		for (Object memObject : memoryObjects) {
 			root.sinkObject(new Tuple(memObject));
-			
+
 			objectMemory.remove(memObject);
 
 			Collection<Integer> aRuleIds = ConflictSet.getActiveRuleIds();
 
 			if (aRuleIds != null && aRuleIds.size() > 0) {
+
+				List<Integer> removeRules = new ArrayList<>();
+
+				// If a rule is already fired with a given pattern
+				// remove it from the list
+				for (Integer ruleId : aRuleIds) {
+
+					Tuple tuple = (Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0];
+					if (isRuleAlreadyFired(tuple, ruleId)) {
+						removeRules.add(ruleId);
+					}
+				}
+
+				aRuleIds.removeAll(removeRules);
 
 				// Resolve conflict set
 
@@ -114,7 +128,8 @@ public class RulesContainer {
 						// Rule with more conditions is given a priority
 						if (ruleMap.get(intersectedRuleId).getConditions().size() < ruleMap.get(currentRuleId)
 								.getConditions().size()) {
-							ruleId_TargerCl.replace(currentRuleId, targetClasses);
+							ruleId_TargerCl.remove(intersectedRuleId);
+							ruleId_TargerCl.put(currentRuleId, targetClasses);
 
 						}
 
@@ -127,25 +142,18 @@ public class RulesContainer {
 
 				List<Object> modifiedObjects = new ArrayList();
 
-				// If a rule is already fired with a given pattern
-				// remove it from the list
-				for (Integer ruleId : ruleId_TargerCl.keySet()) {
-
-					Tuple tuple = (Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0];
-					if (isRuleAlreadyFired(tuple, ruleId)) {
-						ruleId_TargerCl.remove(ruleId);
-					}
-				}
-
 				// Fire Rules and collect modified objects
 				for (Integer ruleId : ruleId_TargerCl.keySet()) {
 					List<Action> actions = this.getRuleById(ruleId).getActions();
 
+					Tuple tuple = (Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0];
+
 					for (Action a : actions) {
-						List<Object> objects = a.getTask()
-								.execute((Tuple) ConflictSet.getTuplesByRuleId(ruleId).toArray()[0]);
+						List<Object> objects = a.getTask().execute(tuple);
 						modifiedObjects.addAll(objects);
 					}
+
+					savePatternForRule(tuple, ruleId);
 				}
 
 				// modifiedObjects contains changed objects
@@ -158,15 +166,25 @@ public class RulesContainer {
 
 				// Add New Objects to working memory
 				objectMemory.addAll(modifiedObjects);
-				
-				
+
 			}
 		}
 
 		run();
 	}
 
-	private boolean isRuleAlreadyFired(Tuple tuple, Integer ruleId) {
+	private void savePatternForRule(Tuple tuple, Integer ruleId) {
+
+		String pattern = getPatternForRule(tuple, ruleId);
+
+		if (rulePatternMap.get(ruleId) == null) {
+			rulePatternMap.put(ruleId, new HashSet<>());
+		}
+
+		rulePatternMap.get(ruleId).add(pattern);
+	}
+
+	private String getPatternForRule(Tuple tuple, Integer ruleId) {
 
 		Rule rule = this.getRuleById(ruleId);
 
@@ -198,14 +216,15 @@ public class RulesContainer {
 			}
 		}
 
-		if (rulePatternMap.get(ruleId) == null) {
-			rulePatternMap.put(ruleId, new HashSet<>());
-		}
+		return patternKey;
+	}
 
-		if (rulePatternMap.get(ruleId).contains(patternKey)) {
+	private boolean isRuleAlreadyFired(Tuple tuple, Integer ruleId) {
+		String pattern = getPatternForRule(tuple, ruleId);
+
+		if (rulePatternMap.get(ruleId)!=null && rulePatternMap.get(ruleId).contains(pattern)) {
 			return true;
 		} else {
-			rulePatternMap.get(ruleId).add(patternKey);
 			return false;
 		}
 	}

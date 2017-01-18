@@ -21,7 +21,7 @@ public class TestRules {
 
 	public static void main(String args[]) {
 
-		Condition c1 = new DefaultCondition(Student.class, "age", Operator.GREATER_THAN, 30);
+		Condition c1 = new DefaultCondition(Student.class, "age", Operator.GREATER_THAN, 300);
 
 		Condition c2 = new DefaultCondition(Student.class, "age", Operator.LESS_THAN, 100);
 
